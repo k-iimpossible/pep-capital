@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PEP Capital — Energy Transition Fund</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { width: 100%; overflow-x: hidden; }
+    body { font-family: 'Jost', sans-serif; font-weight: 300; color: #f0ece2; background: #0d1a0f; }
+
+    .nav { display: flex; align-items: center; justify-content: space-between; padding: 1.5rem 3rem; border-bottom: 0.5px solid rgba(240,236,226,0.12); background: #0d1a0f; position: sticky; top: 0; z-index: 100; }
+    .nav-logo { display: flex; align-items: center; gap: 12px; cursor: pointer; text-decoration: none; }
+    .nav-logo img { height: 40px; width: auto; display: block; }
+    .nav-links { display: flex; gap: 2rem; }
+    .nav-links a { font-size: 12px; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(240,236,226,0.6); text-decoration: none; cursor: pointer; transition: color 0.2s; }
+    .nav-links a:hover { color: #f0ece2; }
+    .nav-links a.active { color: #f0ece2; }
+    .nav-cta { font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; border: 0.5px solid rgba(240,236,226,0.3); color: #f0ece2; padding: 8px 20px; cursor: pointer; background: transparent; font-family: 'Jost', sans-serif; font-weight: 400; text-decoration: none; transition: background 0.2s; }
+    .nav-cta:hover { background: rgba(240,236,226,0.08); }
+
+    .page { display: none; }
+    .page.active { display: block; }
+
+    .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: flex-end; padding: 0 3rem 4rem; position: relative; overflow: hidden; }
+    .hero-bg { position: absolute; inset: 0; overflow: hidden; }
+    .hero-svg { width: 100%; height: 100%; }
+    .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(13,26,15,0.3) 0%, rgba(13,26,15,0.7) 60%, #0d1a0f 100%); }
+    .hero-content { position: relative; z-index: 2; max-width: 680px; }
+    .hero-title { font-family: 'Cormorant Garamond', serif; font-size: 72px; font-weight: 300; line-height: 1.1; color: #f0ece2; margin-bottom: 1.5rem; }
+    .hero-title em { font-style: italic; color: #a8d48a; }
+    .hero-sub { font-size: 15px; font-weight: 300; line-height: 1.75; color: rgba(240,236,226,0.7); max-width: 520px; margin-bottom: 2.5rem; }
+    .hero-actions { display: flex; gap: 1rem; align-items: center; }
+    .btn-primary { background: #7ab55c; color: #0d1a0f; border: none; padding: 14px 32px; font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; cursor: pointer; text-decoration: none; display: inline-block; transition: background 0.2s; }
+    .btn-primary:hover { background: #8fc76b; }
+    .btn-ghost { background: transparent; color: rgba(240,236,226,0.7); border: 0.5px solid rgba(240,236,226,0.25); padding: 14px 32px; font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 400; letter-spacing: 0.15em; text-transform: uppercase; cursor: pointer; text-decoration: none; display: inline-block; transition: color 0.2s, border-color 0.2s; }
+    .btn-ghost:hover { color: #f0ece2; border-color: rgba(240,236,226,0.5); }
+
+    .section { padding: 5rem 3rem; }
+    .section-label { font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase; color: #7ab55c; margin-bottom: 1rem; }
+    .section-title { font-family: 'Cormorant Garamond', serif; font-size: 42px; font-weight: 300; line-height: 1.2; color: #f0ece2; margin-bottom: 1.5rem; }
+    .section-title em { font-style: italic; }
+    .section-body { font-size: 14.5px; line-height: 1.8; color: rgba(240,236,226,0.65); max-width: 620px; }
+    .footer { padding: 2rem 3rem; border-top: 0.5px solid rgba(240,236,226,0.1); display: flex; justify-content: space-between; align-items: center; }
+    .footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 14px; font-weight: 600; color: rgba(240,236,226,0.5); }
+    .footer-disc { font-size: 10px; color: rgba(240,236,226,0.2); max-width: 480px; line-height: 1.5; }
+
+    .three-col { display: grid; grid-template-columns: repeat(3, 1fr); }
+    .pillar { padding: 2.5rem; border-top: 0.5px solid rgba(240,236,226,0.12); border-left: 0.5px solid rgba(240,236,226,0.12); }
+    .pillar:nth-child(3n+1) { border-left: none; }
+    .pillar-num { font-family: 'Cormorant Garamond', serif; font-size: 48px; font-weight: 300; color: rgba(122,181,92,0.25); line-height: 1; margin-bottom: 1rem; }
+    .pillar-title { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 600; color: #f0ece2; margin-bottom: 0.75rem; }
+    .pillar-body { font-size: 13px; line-height: 1.7; color: rgba(240,236,226,0.55); }
+
+    .focus-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: rgba(240,236,226,0.08); margin-top: 3rem; }
+    .focus-card { background: #0d1a0f; padding: 2rem; transition: background 0.2s; }
+    .focus-card:hover { background: #132015; }
+    .focus-tag { font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: #7ab55c; margin-bottom: 0.75rem; }
+    .focus-body { font-size: 12.5px; line-height: 1.65; color: rgba(240,236,226,0.5); }
+
+    .approach-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: rgba(240,236,226,0.08); margin: 0 3rem 4rem; }
+    .approach-col { background: #0d1a0f; padding: 2.5rem; }
+    .approach-head { font-family: 'Cormorant Garamond', serif; font-size: 17px; font-weight: 600; color: #f0ece2; margin-bottom: 0.5rem; margin-top: 1.25rem; }
+    .approach-text { font-size: 12.5px; line-height: 1.65; color: rgba(240,236,226,0.5); }
+
+    .hl-band { background: #132015; padding: 4rem 3rem; border-top: 0.5px solid rgba(240,236,226,0.08); border-bottom: 0.5px solid rgba(240,236,226,0.08); display: grid; grid-template-columns: 1fr 1fr 1fr; }
+    .hl-stat { padding: 1rem 2rem; border-right: 0.5px solid rgba(240,236,226,0.1); }
+    .hl-stat:first-child { padding-left: 0; }
+    .hl-stat:last-child { border-right: none; }
+    .hl-num { font-family: 'Cormorant Garamond', serif; font-size: 48px; font-weight: 300; color: #f0ece2; line-height: 1; margin-bottom: 6px; }
+    .hl-num span { font-size: 28px; color: #7ab55c; }
+    .hl-label { font-size: 12px; color: rgba(240,236,226,0.45); line-height: 1.5; }
+    .hl-source { font-size: 10px; color: rgba(240,236,226,0.2); margin-top: 4px; }
+
+    .force-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: rgba(240,236,226,0.08); }
+    .force-card { background: #0d1a0f; padding: 3rem; transition: background 0.25s; }
+    .force-card:hover { background: #132015; }
+    .force-num { font-family: 'Cormorant Garamond', serif; font-size: 56px; font-weight: 300; color: rgba(122,181,92,0.2); line-height: 1; margin-bottom: 1.25rem; }
+    .force-title { font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 600; color: #f0ece2; margin-bottom: 0.75rem; }
+    .force-stat { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: #7ab55c; margin-bottom: 1rem; }
+    .force-body { font-size: 13.5px; line-height: 1.75; color: rgba(240,236,226,0.55); }
+
+    .catalyst-row { display: grid; grid-template-columns: 60px 1fr; gap: 1.5rem; padding: 2rem 0; border-bottom: 0.5px solid rgba(240,236,226,0.08); align-items: start; }
+    .catalyst-row:first-child { border-top: 0.5px solid rgba(240,236,226,0.08); }
+    .catalyst-icon { width: 44px; height: 44px; border: 0.5px solid rgba(122,181,92,0.3); display: flex; align-items: center; justify-content: center; }
+    .catalyst-head { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 600; color: #f0ece2; margin-bottom: 6px; }
+    .catalyst-body { font-size: 13px; line-height: 1.7; color: rgba(240,236,226,0.5); }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a class="nav-logo" href="#" onclick="showPage('home'); return false;">
+      <img src="logo.png" alt="PEP Capital logo">
+    </a>
+    <div class="nav-links">
+      <a id="nav-home" class="active" href="#" onclick="showPage('home'); return false;">Home</a>
+      <a id="nav-strategy" href="#" onclick="showPage('strategy'); return false;">Strategy</a>
+      <a id="nav-whynow" href="#" onclick="showPage('whynow'); return false;">Why now</a>
+      <a id="nav-contact" href="#" onclick="showPage('contact'); return false;">Contact</a>
+    </div>
+    <a class="nav-cta" href="#" onclick="showPage('contact'); return false;">Investor inquiries</a>
+  </nav>
+
+  <!-- HOME -->
+  <div id="home" class="page active">
+    <div class="hero">
+      <div class="hero-bg">
+        <svg class="hero-svg" viewBox="0 0 1200 700" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+          <rect width="1200" height="700" fill="#0a1a0c"/>
+          <rect x="0" y="400" width="1200" height="300" fill="#061008"/>
+          <rect x="80" y="200" width="12" height="200" fill="#1a3d1e"/>
+          <rect x="100" y="160" width="12" height="240" fill="#1a3d1e"/>
+          <rect x="120" y="220" width="12" height="180" fill="#163518"/>
+          <rect x="140" y="180" width="12" height="220" fill="#1a3d1e"/>
+          <rect x="160" y="240" width="12" height="160" fill="#163518"/>
+          <circle cx="900" cy="180" r="90" fill="#1a3020" opacity="0.4"/>
+          <circle cx="950" cy="120" r="60" fill="#1a3020" opacity="0.3"/>
+          <line x1="0" y1="400" x2="1200" y2="400" stroke="#1e4020" stroke-width="0.5"/>
+          <rect x="0" y="398" width="1200" height="4" fill="#0f2212" opacity="0.8"/>
+          <line x1="300" y1="395" x2="320" y2="250" stroke="#4a7a30" stroke-width="1" opacity="0.3"/>
+          <line x1="400" y1="395" x2="450" y2="200" stroke="#4a7a30" stroke-width="1" opacity="0.3"/>
+          <line x1="500" y1="395" x2="520" y2="280" stroke="#4a7a30" stroke-width="1" opacity="0.3"/>
+          <ellipse cx="320" cy="250" rx="15" ry="60" fill="#3a6828" opacity="0.5"/>
+          <ellipse cx="450" cy="200" rx="15" ry="70" fill="#3a6828" opacity="0.5"/>
+          <ellipse cx="520" cy="280" rx="15" ry="55" fill="#2e5222" opacity="0.4"/>
+          <rect x="340" y="370" width="60" height="30" fill="#0f2010"/>
+          <rect x="380" y="350" width="40" height="50" fill="#132515"/>
+          <rect x="420" y="360" width="50" height="40" fill="#0f2010"/>
+          <rect x="460" y="340" width="35" height="60" fill="#132515"/>
+          <rect x="520" y="355" width="45" height="45" fill="#0f2010"/>
+          <polyline points="50,350 150,320 250,335 350,290 450,310 550,280 650,300 750,270 850,285 950,260 1050,275 1150,255" fill="none" stroke="#2d5a1e" stroke-width="1" opacity="0.4"/>
+        </svg>
+        <div class="hero-overlay"></div>
+      </div>
+      <div class="hero-content">
+        <h1 class="hero-title">Investing in the energy<br>system the world<br><em>is building.</em></h1>
+        <p class="hero-sub">The global energy system is undergoing its most significant transformation in a century. We invest across the full value chain, with a low-carbon bias and no preference for any single technology.</p>
+        <div class="hero-actions">
+          <a class="btn-primary" href="#" onclick="showPage('strategy'); return false;">Our strategy</a>
+          <a class="btn-ghost" href="#" onclick="showPage('contact'); return false;">Get in touch</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <p class="section-label">What we believe</p>
+      <h2 class="section-title">The forces reshaping energy<br><em>are real, and they are not slowing down.</em></h2>
+      <p class="section-body">Policy matters, but it is not our foundation. The growing need for energy security and the build-out of a more complex and resilient grid are long-term forces that create durable investment opportunities.</p>
+    </div>
+
+    <div class="three-col" style="padding: 0 3rem 4rem;">
+      <div class="pillar"><div class="pillar-num">01</div><div class="pillar-title">Complexity</div><div class="pillar-body">The grid is moving from a simple one-directional system to a dynamic, distributed network, creating new categories of infrastructure and services that did not exist a decade ago.</div></div>
+      <div class="pillar"><div class="pillar-num">02</div><div class="pillar-title">Resilience</div><div class="pillar-body">Energy security and supply chain sovereignty have become top-tier geopolitical priorities, driving global investment across the full energy stack.</div></div>
+      <div class="pillar"><div class="pillar-num">03</div><div class="pillar-title">Electrification</div><div class="pillar-body">Transport, buildings, and industry are all shifting to electricity, and the demand that creates is enormous and still growing.</div></div>
+      <div class="pillar" style="border-top: none;"><div class="pillar-num">04</div><div class="pillar-title">Diversification</div><div class="pillar-body">The energy mix is broadening. We invest across sources and technologies because we do not believe any single answer wins outright.</div></div>
+      <div class="pillar" style="border-top: none;"><div class="pillar-num">05</div><div class="pillar-title">Abundance</div><div class="pillar-body">The world is not running short on energy. It is learning to produce, move, and store it in new ways.</div></div>
+      <div class="pillar" style="border-top: none;"><div class="pillar-num">06</div><div class="pillar-title">Digitization</div><div class="pillar-body">Software and AI are changing how energy is managed and optimized. A new layer of value is being built on top of the physical grid, and it is still early.</div></div>
+    </div>
+
+    <div class="footer">
+      <div class="footer-logo">&copy; PEP Capital, LLC. All rights reserved.</div>
+      <div class="footer-disc">For discussion purposes only. Not an offer to sell or solicitation to buy any security. Past performance is not indicative of future results.</div>
+    </div>
+  </div>
+
+  <!-- STRATEGY -->
+  <div id="strategy" class="page">
+    <div class="section" style="padding-bottom: 2rem;">
+      <p class="section-label">Strategy</p>
+      <h2 class="section-title">We look at energy<br><em>as a system.</em></h2>
+      <p class="section-body">We do not believe a single fuel or technology will win outright. Our focus is the full buildout of a more complex and more resilient energy system, and the companies making that buildout possible across the value chain.</p>
+    </div>
+    <div class="focus-grid">
+      <div class="focus-card"><div class="focus-tag">Generation</div><div class="focus-body">We take a pragmatic view of which sources are best positioned for the demand ahead, without a predetermined answer.</div></div>
+      <div class="focus-card"><div class="focus-tag">Infrastructure</div><div class="focus-body">In most markets, the grid is decades behind where growing demand requires it to be. Transmission, distribution, and grid modernization are among our highest-conviction areas.</div></div>
+      <div class="focus-card"><div class="focus-tag">Storage</div><div class="focus-body">Roughly two-thirds of all energy input globally is lost as waste heat. Better storage changes that equation and empowers more energy sources. We invest across the storage stack as the market matures and the technology becomes more capable.</div></div>
+      <div class="focus-card"><div class="focus-tag">Electrification</div><div class="focus-body">The demand side of the energy shift is large and poised to grow rapidly. We focus on the platforms and technologies gaining real traction.</div></div>
+      <div class="focus-card"><div class="focus-tag">Critical minerals</div><div class="focus-body">The energy transition is in many ways a minerals transition. Mining, refining, and processing remain deeply underinvested relative to demand.</div></div>
+      <div class="focus-card"><div class="focus-tag">Emerging themes</div><div class="focus-body">Energy systems change. We keep the portfolio open to areas that are early today but consequential tomorrow, and we follow the opportunity as the landscape shifts.</div></div>
+    </div>
+    <div class="section" style="padding-bottom: 1rem;">
+      <p class="section-label">Approach</p>
+      <h2 class="section-title">How we invest.</h2>
+    </div>
+    <div class="approach-grid">
+      <div class="approach-col">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="12" stroke="#7ab55c" stroke-width="0.75"/><line x1="16" y1="4" x2="16" y2="28" stroke="#7ab55c" stroke-width="0.75"/><line x1="4" y1="16" x2="28" y2="16" stroke="#7ab55c" stroke-width="0.75"/></svg>
+        <div class="approach-head">Public securities</div>
+        <div class="approach-text">We are long-term investors with a risk management overlay, combining fundamental research with sector expertise. We go where the evidence takes us.</div>
+      </div>
+      <div class="approach-col">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><rect x="4" y="4" width="11" height="11" stroke="#7ab55c" stroke-width="0.75"/><rect x="17" y="4" width="11" height="11" stroke="#7ab55c" stroke-width="0.75"/><rect x="4" y="17" width="11" height="11" stroke="#7ab55c" stroke-width="0.75"/><rect x="17" y="17" width="11" height="11" stroke="#7ab55c" stroke-width="0.75"/></svg>
+        <div class="approach-head">Private investments</div>
+        <div class="approach-text">We invest selectively in private companies where we find compelling teams building real positions in the energy value chain.</div>
+      </div>
+      <div class="approach-col">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><polyline points="4,24 12,14 18,18 28,6" stroke="#7ab55c" stroke-width="0.75" fill="none"/><circle cx="28" cy="6" r="2" fill="#7ab55c"/></svg>
+        <div class="approach-head">Analytical rigor</div>
+        <div class="approach-text">We build our own views. Our research is independent and bottom-up, and we do not treat consensus as a starting point. When the work supports conviction, we size positions accordingly.</div>
+      </div>
+      <div class="approach-col">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><rect x="4" y="14" width="24" height="14" stroke="#7ab55c" stroke-width="0.75"/><polyline points="10,14 10,9 22,9 22,14" stroke="#7ab55c" stroke-width="0.75" fill="none"/><line x1="16" y1="18" x2="16" y2="24" stroke="#7ab55c" stroke-width="0.75"/></svg>
+        <div class="approach-head">Portfolio construction</div>
+        <div class="approach-text">We build across themes and geographies with intention. Concentrated positions sit alongside broader exposure to the forces we find most durable, and the balance shifts as markets evolve.</div>
+      </div>
+    </div>
+    <div class="footer" style="margin-top: 2rem;">
+      <div class="footer-logo">&copy; PEP Capital, LLC. All rights reserved.</div>
+      <div class="footer-disc">For discussion purposes only. Not an offer to sell or solicitation to buy any security.</div>
+    </div>
+  </div>
+
+  <!-- WHY NOW -->
+  <div id="whynow" class="page">
+    <div class="section" style="padding-bottom: 4rem; border-bottom: 0.5px solid rgba(240,236,226,0.08);">
+      <p class="section-label">Why now</p>
+      <h2 class="section-title">The energy buildout is one of<br><em>the defining investment themes<br>of the next decade.</em></h2>
+      <p class="section-body">The global energy system is undergoing capital-intensive change across every dimension &mdash; how power is generated, moved, stored, and consumed. The infrastructure required to meet growing demand and replace aging assets is well short of where it needs to be. The gap between where things are and where they need to go is large, long in duration, and just beginning to attract the capital it requires.</p>
+    </div>
+    <div class="hl-band">
+      <div class="hl-stat">
+        <div class="hl-num">$170<span>T</span></div>
+        <div class="hl-label">Total global energy infrastructure investment needed through 2050</div>
+        <div class="hl-source">IEA; illustrative</div>
+      </div>
+      <div class="hl-stat">
+        <div class="hl-num">2<span>x</span></div>
+        <div class="hl-label">Expected growth in global electricity demand by 2050</div>
+        <div class="hl-source">IEA World Energy Outlook; illustrative</div>
+      </div>
+      <div class="hl-stat">
+        <div class="hl-num">~2/3</div>
+        <div class="hl-label">Of all energy input globally is lost as waste heat</div>
+        <div class="hl-source">Lawrence Livermore National Laboratory; illustrative</div>
+      </div>
+    </div>
+    <div class="force-grid">
+      <div class="force-card"><div class="force-num">01</div><div class="force-title">Electricity demand is growing in ways that are new and unlikely to reverse</div><div class="force-stat">Fastest demand growth in developed markets in decades</div><div class="force-body">AI data centers, EV adoption, industrial electrification, and the return of manufacturing to the US and Europe are all electricity-intensive. For the first time in decades, demand in developed markets is rising sharply again, and the infrastructure serving it was designed for a different era. Grid operators and utilities are responding, but capital deployment will need to accelerate considerably to keep pace.</div></div>
+      <div class="force-card"><div class="force-num">02</div><div class="force-title">The grid is a binding constraint, and investment has lagged for years</div><div class="force-stat">$1.2T US grid investment gap through 2035</div><div class="force-body">The US has added more energy generation capacity than its transmission system can move. Interconnection queues in some regions have stretched to over eight years. Europe and Asia face similar constraints. The modernization required to support growing electrification is among the most capital-intensive buildouts of this era, and it is only getting started.</div></div>
+      <div class="force-card"><div class="force-num">03</div><div class="force-title">Energy security is a priority across much of the world, and investment is following</div><div class="force-stat">Domestic energy resilience now a top priority across major economies</div><div class="force-body">The energy disruptions of recent years have fundamentally changed how governments think about energy. Energy security is now a bipartisan priority across the globe. This creates durable, policy-backed demand for domestic generation, grid resilience, and supply chain sovereignty that transcends any single administration or political cycle. Our thesis does not require a specific political environment; it requires governments to keep prioritizing security.</div></div>
+      <div class="force-card"><div class="force-num">04</div><div class="force-title">Critical minerals sit at the center of the energy buildout, and supply is running short</div><div class="force-stat">Supply-demand gaps building across multiple parts of the minerals complex</div><div class="force-body">Most energy pathways depend on minerals whose supply chains are chronically underfunded and slow to develop. Permitting alone can take decades. Governments are beginning to treat mineral access as a strategic issue, which historically precedes significant capital flows into the sector.</div></div>
+      <div class="force-card"><div class="force-num">05</div><div class="force-title">The aging energy fleet requires substantial capital, regardless of what comes next</div><div class="force-stat">A wave of investment decisions is approaching, whether operators retire or extend</div><div class="force-body">Much of the baseload generation capacity in advanced economies was built in the 1960s, 70s, and 80s and is now 40 to 60 years old. Operators face a wave of expensive decisions: retire and replace, or extend and maintain, and neither path is cheap. That capital requirement exists regardless of policy outcomes or the pace of the broader energy transition.</div></div>
+      <div class="force-card"><div class="force-num">06</div><div class="force-title">Falling technology costs are reshaping the economics of energy globally</div><div class="force-stat">Multiple technologies now cost-competitive across a widening range of markets</div><div class="force-body">The cost of generating, storing, and managing energy has fallen considerably across a range of technologies over the past decade. These reflect real learning curves, manufacturing scale, and engineering progress. The result is that geographies previously constrained to a narrow set of energy options are now revisiting what their optimal mix looks like, expanding the global investment opportunity set in ways that are still being understood.</div></div>
+    </div>
+    <div class="section" style="padding-bottom: 1rem;">
+      <p class="section-label">Near-term catalysts</p>
+      <h2 class="section-title">What is accelerating<br><em>the opportunity today.</em></h2>
+      <div style="margin-top: 2rem;">
+        <div class="catalyst-row">
+          <div class="catalyst-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="2" y="2" width="16" height="16" stroke="#7ab55c" stroke-width="0.75"/><line x1="6" y1="10" x2="14" y2="10" stroke="#7ab55c" stroke-width="0.75"/><line x1="10" y1="6" x2="10" y2="14" stroke="#7ab55c" stroke-width="0.75"/></svg></div>
+          <div><div class="catalyst-head">AI and data center power demand</div><div class="catalyst-body">The build-out of AI infrastructure has created an electricity demand surge that very few anticipated. Hyperscalers are signing long-term power agreements at scale and pulling forward investment in generation and storage by years. This is a demand driver that did not exist five years ago, and it is creating capacity shortfalls that could take a decade to resolve.</div></div>
+        </div>
+        <div class="catalyst-row">
+          <div class="catalyst-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="7" stroke="#7ab55c" stroke-width="0.75"/><polyline points="7,10 10,7 13,10" stroke="#7ab55c" stroke-width="0.75" fill="none"/><line x1="10" y1="7" x2="10" y2="14" stroke="#7ab55c" stroke-width="0.75"/></svg></div>
+          <div><div class="catalyst-head">Manufacturing reshoring and industrial revival</div><div class="catalyst-body">Semiconductor fabs, battery plants, and heavy industry coming back to the US and Europe are energy-intensive by nature. New facilities are being announced at a pace not seen in a generation, each adding sustained electricity demand to grids that were not sized for it. The investment implications for energy infrastructure extend well beyond the initial construction phase.</div></div>
+        </div>
+        <div class="catalyst-row">
+          <div class="catalyst-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><polyline points="3,14 7,8 11,11 17,4" stroke="#7ab55c" stroke-width="0.75" fill="none"/><circle cx="17" cy="4" r="2" stroke="#7ab55c" stroke-width="0.75"/></svg></div>
+          <div><div class="catalyst-head">Nuclear gaining serious momentum</div><div class="catalyst-body">For the first time in a generation, nuclear has real bipartisan support and serious corporate backing. Major technology companies are signing agreements to restart retired facilities and fund advanced reactor development. Small modular reactors are moving from engineering concept to active construction in several jurisdictions.</div></div>
+        </div>
+        <div class="catalyst-row">
+          <div class="catalyst-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="3" y="8" width="14" height="9" stroke="#7ab55c" stroke-width="0.75"/><polyline points="7,8 7,5 13,5 13,8" stroke="#7ab55c" stroke-width="0.75" fill="none"/><line x1="10" y1="11" x2="10" y2="14" stroke="#7ab55c" stroke-width="0.75"/></svg></div>
+          <div><div class="catalyst-head">Critical mineral supply constraints tightening</div><div class="catalyst-body">The minerals underpinning the energy buildout are in short supply relative to where demand is heading. Governments are treating access to them as a strategic issue, which historically precedes significant capital deployment into the sector. We believe we are still early in that cycle.</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="footer">
+      <div class="footer-logo">&copy; PEP Capital, LLC. All rights reserved.</div>
+      <div class="footer-disc">For discussion purposes only. Data points and projections are illustrative and drawn from publicly available third-party sources. Not an offer to sell or solicitation to buy any security.</div>
+    </div>
+  </div>
+
+  <!-- CONTACT -->
+  <div id="contact" class="page">
+    <div class="section" style="padding-bottom: 2rem;">
+      <p class="section-label">Contact</p>
+      <h2 class="section-title">Let's talk about<br><em>the opportunity.</em></h2>
+      <p style="font-size: 15px; line-height: 1.85; color: rgba(240,236,226,0.65); max-width: 580px; margin-top: 1.5rem;">We welcome inquiries from institutional investors, family offices, qualified individual investors, and energy companies. Send us an email and someone from our team will correspond shortly.</p>
+    </div>
+    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; border-top: 0.5px solid rgba(240,236,226,0.1); margin: 0 3rem 5rem;">
+      <div style="padding: 2.5rem 3rem 2.5rem 0; border-right: 0.5px solid rgba(240,236,226,0.1);">
+        <div style="font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(240,236,226,0.3); margin-bottom: 10px;">Investor relations</div>
+        <div style="font-size: 15px; color: rgba(240,236,226,0.75);">ir@pepcapital.com</div>
+      </div>
+      <div style="padding: 2.5rem 3rem; border-right: 0.5px solid rgba(240,236,226,0.1);">
+        <div style="font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(240,236,226,0.3); margin-bottom: 10px;">Office</div>
+        <div style="font-size: 15px; color: rgba(240,236,226,0.75); line-height: 1.6;">1951 NW 7th Ave, Suite 600<br>Miami, FL 33136</div>
+      </div>
+      <div style="padding: 2.5rem 0 2.5rem 3rem;">
+        <div style="font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(240,236,226,0.3); margin-bottom: 10px;">General inquiries</div>
+        <div style="font-size: 15px; color: rgba(240,236,226,0.75);">info@pepcapital.com</div>
+      </div>
+    </div>
+    <div class="footer">
+      <div class="footer-logo">&copy; PEP Capital, LLC. All rights reserved.</div>
+      <div class="footer-disc">For discussion purposes only. Not an offer to sell or solicitation to buy any security.</div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    function showPage(id) {
+      var pages = document.querySelectorAll('.page');
+      for (var i = 0; i < pages.length; i++) {
+        pages[i].classList.remove('active');
+      }
+      document.getElementById(id).classList.add('active');
+      var links = document.querySelectorAll('.nav-links a');
+      for (var j = 0; j < links.length; j++) {
+        links[j].classList.remove('active');
+      }
+      var navEl = document.getElementById('nav-' + id);
+      if (navEl) { navEl.classList.add('active'); }
+      window.scrollTo(0, 0);
+    }
+  </script>
+
+</body>
+</html>
